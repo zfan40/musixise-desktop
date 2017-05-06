@@ -11,11 +11,11 @@ import 'element-ui/lib/theme-default/index.css';
 // nation flags (css nation flags)
 import FlagIcon from 'vue-flag-icon';
 // vue axios (HTTP requests)
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 //  vue resource is seemingly no better than axios
 // import Resource from 'vue-resource';
- 
+
 
 Vue.use(Electron);
 // Vue.use(Resource);

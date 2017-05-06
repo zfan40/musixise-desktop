@@ -108,19 +108,19 @@
     data() {
       return {
         activeIndex: '1',
-        userInfo:{
+        userInfo: {
           // id:1,
           // avatar:'http://oaeyej2ty.bkt.clouddn.com/CcwtD1PN_dfg.jpg',
         },
-        loginFormVisible:false,
-        registerFormVisible:false,
-        loginForm:{
+        loginFormVisible: false,
+        registerFormVisible: false,
+        loginForm: {
           userName: '',
           realName: '',
           passWord: '',
           region: '',
         },
-        registerForm:{
+        registerForm: {
 
         },
         formLabelWidth: '120px',
@@ -130,12 +130,12 @@
       handleSelect(key, keyPath) {
         // console.log(key, keyPath);
       },
-      login(){this.loginFormVisible = true},
-      logout(){},
-      register(){this.registerFormVisible = true},
-      updateAvatar(){},
-      submitLoginForm(){},
-      submitRegisterForm(){}
+      login() { this.loginFormVisible = true; },
+      logout() {},
+      register() { this.registerFormVisible = true; },
+      updateAvatar() {},
+      submitLoginForm() {},
+      submitRegisterForm() {},
     },
   };
 </script>
