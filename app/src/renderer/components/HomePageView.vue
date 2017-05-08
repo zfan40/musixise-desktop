@@ -11,12 +11,12 @@
         </el-submenu>
 
         <el-submenu index="4" style="float:right;" v-if="userInfo.id">
-          <template slot="title"><img style="height:100%;display:inline" :src="userInfo.avatar"></template>
+          <template slot="title"><img style="height:100%;display:inline" :src="userInfo.smallAvatar"></template>
           <el-menu-item index="4-1" @click="updateAvatar">更新头像</el-menu-item>
           <el-menu-item index="4-2" @click="logout">登出</el-menu-item>
         </el-submenu>
-        <el-menu-item index="4" style="float:right;" v-if="!userInfo.id" @click="login">登录</el-menu-item>
-        <el-menu-item index="5" style="float:right;" v-if="!userInfo.id" @click="register">注册</el-menu-item>
+        <el-menu-item index="4" style="float:right;" v-if="!userInfo.userId" @click="login">登录</el-menu-item>
+        <el-menu-item index="5" style="float:right;" v-if="!userInfo.userId" @click="register">注册</el-menu-item>
       </el-menu>
     </header>
 
@@ -58,16 +58,16 @@
     <el-dialog title="加入Musixise" v-model="registerFormVisible">
       <el-form :model="registerForm">
         <el-form-item label="登录名" :label-width="formLabelWidth">
-          <el-input placeholder="仅限英文数字字符" v-model="registerForm.userName" auto-complete="off"></el-input>
+          <el-input placeholder="仅限英文数字字符" v-model="registerForm.username" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="用户名" :label-width="formLabelWidth">
           <el-input placeholder="可中文" v-model="registerForm.realName" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码" :label-width="formLabelWidth">
-          <el-input type="password" placeholder="请输入密码" v-model="registerForm.passWord" auto-complete="off"></el-input>
+          <el-input type="password" placeholder="请输入密码" v-model="registerForm.password" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="重复密码" :label-width="formLabelWidth">
-          <el-input type="password" placeholder="请确认密码" v-model="registerForm.passWord" auto-complete="off"></el-input>
+          <el-input type="password" placeholder="请确认密码" v-model="registerForm.password" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="国籍" :label-width="formLabelWidth">
           <el-select v-model="registerForm.region" placeholder="请选择">
@@ -87,15 +87,23 @@
     <el-dialog title="登录" v-model="loginFormVisible">
       <el-form :model="loginForm">
         <el-form-item label="登录名" :label-width="formLabelWidth">
-          <el-input v-model="loginForm.name" auto-complete="off"></el-input>
+          <el-input v-model="loginForm.username" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码" :label-width="formLabelWidth">
-          <el-input type="password" placeholder="" v-model="loginForm.passWord" auto-complete="off"></el-input>
+          <el-input type="password" placeholder="" v-model="loginForm.password" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="loginFormVisible = false">取消</el-button>
         <el-button type="primary" @click="submitLoginForm">确认</el-button>
+      </span>
+    </el-dialog>
+    <!-- upload avatar dialog -->
+    <el-dialog title="上传头像" v-model="avatarFormVisible">
+      <vue-core-image-upload :class="['btn', 'btn-primary']" inputOfFile="file" :crop="false" :header="avatarFromHeader" @imageuploaded="imageuploaded" :max-file-size="5242880" url="//api.musixise.com/api/picture/uploadPic" ></vue-core-image-upload>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="loginFormVisible = false">取消</el-button>
+        <el-button type="primary" @click="submitAvatarForm">确认</el-button>
       </span>
     </el-dialog>
 
@@ -104,21 +112,36 @@
 </template>
 
 <script>
+  import VueCoreImageUpload from 'vue-core-image-upload';
   export default {
+    components: {
+      'vue-core-image-upload': VueCoreImageUpload,
+    },
+    computed:{
+      userInfo() {
+        return this.$store.state.user.userInfo
+      }
+    },
     data() {
       return {
         activeIndex: '1',
-        userInfo: {
-          // id:1,
-          // avatar:'http://oaeyej2ty.bkt.clouddn.com/CcwtD1PN_dfg.jpg',
-        },
+        // userInfo: {
+        //   id:1,
+        //   avatar:'http://oaeyej2ty.bkt.clouddn.com/CcwtD1PN_dfg.jpg',
+        // },
         loginFormVisible: false,
         registerFormVisible: false,
+        avatarFormVisible:false,
+        avatarFromHeader:{
+          dataType: 'json',
+          type: 'POST',
+        },
+        avatarForm:{
+          url:'',
+        },
         loginForm: {
-          userName: '',
-          realName: '',
-          passWord: '',
-          region: '',
+          username: '',
+          password: '',
         },
         registerForm: {
 
@@ -126,6 +149,7 @@
         formLabelWidth: '120px',
       };
     },
+    // created(){console.log('qwe',this.$store.state.user.userInfo)},//user is vuex module
     methods: {
       handleSelect(key, keyPath) {
         // console.log(key, keyPath);
@@ -134,8 +158,27 @@
       logout() {},
       register() { this.registerFormVisible = true; },
       updateAvatar() {},
-      submitLoginForm() {},
+      submitLoginForm() {
+        let self = this;
+        // console.log(this.loginForm);
+        this.$store.dispatch('loginUser',{loginInfo:this.loginForm}).then(()=>{
+          self.loginFormVisible = false;
+          console.log('after login, state=>user:',self.$store.state.user);
+          alert(JSON.stringify(self.$store.state.user));
+          if (self.$store.state.user.userInfo.userId) {
+            self.$message({
+              message: 'Congrats, this is a success message.',
+              type: 'success'
+            });
+          }
+        });
+      },
       submitRegisterForm() {},
+      submitAvatarForm() {},
+      imageuploaded(){},
     },
+    created(){
+      console.log('inital state=>user:',this.$store.state.user);
+    }
   };
 </script>
