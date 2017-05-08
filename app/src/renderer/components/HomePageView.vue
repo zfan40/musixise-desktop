@@ -119,6 +119,12 @@
     },
     computed:{
       userInfo() {
+        if (this.$store.state.user.userInfo.userId) {
+          this.$message({
+            message: '登录成功',
+            type: 'success'
+          });
+        }
         return this.$store.state.user.userInfo
       }
     },
@@ -163,14 +169,12 @@
         // console.log(this.loginForm);
         this.$store.dispatch('loginUser',{loginInfo:this.loginForm}).then(()=>{
           self.loginFormVisible = false;
-          console.log('after login, state=>user:',self.$store.state.user);
-          alert(JSON.stringify(self.$store.state.user));
-          if (self.$store.state.user.userInfo.userId) {
-            self.$message({
-              message: 'Congrats, this is a success message.',
-              type: 'success'
-            });
-          }
+          //TODO TO FIGURE OUT....
+          // console.log('after login, state=>user:',self.$store.state.user);//WHY I CAN SEE VALUE HERE!!!!!?????
+          // console.log('2',self.userInfo);
+          // console.log('3',self.userInfo.id);//WHY NO VALUE!!!!!??????
+          //
+          // setTimeout(function(){console.log('intimeout',self.userInfo.id)},1000) //WHY VALUE HERE!!!!!!!??????
         });
       },
       submitRegisterForm() {},
