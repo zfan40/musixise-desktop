@@ -10,7 +10,7 @@
           <el-menu-item index="3-2">直播</el-menu-item>
         </el-submenu>
 
-        <el-submenu index="4" style="float:right;" v-if="userInfo.id">
+        <el-submenu index="4" style="float:right;" v-if="userInfo.userId">
           <template slot="title"><img style="height:100%;display:inline" :src="userInfo.smallAvatar"></template>
           <el-menu-item index="4-1" @click="updateAvatar">更新头像</el-menu-item>
           <el-menu-item index="4-2" @click="logout">登出</el-menu-item>
@@ -161,7 +161,10 @@
         // console.log(key, keyPath);
       },
       login() { this.loginFormVisible = true; },
-      logout() {},
+      logout() {
+        this.$store.dispatch('logoutUser')
+        .then(()=>{this.$message({message: '登出成功',type: 'success',});})
+      },
       register() { this.registerFormVisible = true; },
       updateAvatar() {},
       submitLoginForm() {

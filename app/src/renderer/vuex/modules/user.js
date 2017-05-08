@@ -14,7 +14,8 @@ const mutations = {
       // state.userInfo.key = userInfo.key;
     });
   },
-  [types.LOGOUT_USER](state, {userInfo}){
+  [types.LOGOUT_USER](state){
+    console.log('mutation,logout user');
     state.userInfo = {};
   },
 };

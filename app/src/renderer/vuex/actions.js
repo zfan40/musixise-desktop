@@ -25,4 +25,8 @@ export const loginUser = ({ commit },{ loginInfo }) => {
       commit(types.UPDATE_USER,{userInfo:response.data.data});
     })
 };
+
+export const logoutUser = ({ commit }) => {
+  commit(types.LOGOUT_USER);
+};
 // export const updateUser =
