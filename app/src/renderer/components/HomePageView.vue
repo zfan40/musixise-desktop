@@ -114,6 +114,10 @@
 <script>
   import VueCoreImageUpload from 'vue-core-image-upload';
 
+// 例子
+  // import { cube, foo } from './test';
+  // console.log(foo);    // 4.555806215962888
+
   export default {
     components: {
       'vue-core-image-upload': VueCoreImageUpload,
