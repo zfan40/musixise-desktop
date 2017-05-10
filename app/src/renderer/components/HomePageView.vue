@@ -12,7 +12,7 @@
 
         <el-submenu index="4" style="float:right;" v-if="userInfo.userId">
           <template slot="title"><img style="height:100%;display:inline" :src="userInfo.smallAvatar"></template>
-          <el-menu-item index="4-1" @click="updateAvatar">更新头像</el-menu-item>
+          <el-menu-item index="4-1" @click="updateUser">更新头像</el-menu-item>
           <el-menu-item index="4-2" @click="logout">登出</el-menu-item>
         </el-submenu>
         <el-menu-item index="4" style="float:right;" v-if="!userInfo.userId" @click="login">登录</el-menu-item>
@@ -67,7 +67,7 @@
           <el-input type="password" placeholder="请输入密码" v-model="registerForm.password" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="重复密码" :label-width="formLabelWidth">
-          <el-input type="password" placeholder="请确认密码" v-model="registerForm.password" auto-complete="off"></el-input>
+          <el-input type="password" placeholder="请确认密码" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="国籍" :label-width="formLabelWidth">
           <el-select v-model="registerForm.region" placeholder="请选择">
@@ -99,11 +99,11 @@
       </span>
     </el-dialog>
     <!-- upload avatar dialog -->
-    <el-dialog title="上传头像" v-model="avatarFormVisible">
-      <vue-core-image-upload :class="['btn', 'btn-primary']" inputOfFile="file" :crop="false" :header="avatarFromHeader" @imageuploaded="imageuploaded" :max-file-size="5242880" url="//api.musixise.com/api/picture/uploadPic" ></vue-core-image-upload>
+    <el-dialog title="上传头像" v-model="updateFormVisible">
+      <vue-core-image-upload :class="['btn', 'btn-primary']" inputOfFile="file" :crop="false" :header="updateFormHeader" @imageuploaded="imageuploaded" :max-file-size="5242880" url="//api.musixise.com/api/picture/uploadPic" ></vue-core-image-upload>
       <span slot="footer" class="dialog-footer">
         <el-button @click="loginFormVisible = false">取消</el-button>
-        <el-button type="primary" @click="submitAvatarForm">确认</el-button>
+        <el-button type="primary" @click="submitUpdateForm">确认</el-button>
       </span>
     </el-dialog>
 
@@ -137,12 +137,12 @@
         // },
         loginFormVisible: false,
         registerFormVisible: false,
-        avatarFormVisible:false,
-        avatarFromHeader:{
+        updateFormVisible:false,
+        updateFormHeader:{
           dataType: 'json',
           type: 'POST',
         },
-        avatarForm:{
+        updateForm:{
           url:'',
         },
         loginForm: {
@@ -150,7 +150,17 @@
           password: '',
         },
         registerForm: {
-
+          username:'',
+          password:'',
+          realname:'',
+          tel:null,
+          email:'',
+          gender:null,
+          birth:null,
+          nation:null,
+          smallAvatar:'',
+          largeAvatar:'',
+          brief:null,
         },
         formLabelWidth: '120px',
       };
@@ -166,7 +176,7 @@
         .then(()=>{this.$message({message: '登出成功',type: 'success',});})
       },
       register() { this.registerFormVisible = true; },
-      updateAvatar() {},
+      updateInfo() { this.updateFormVisible = true; },
       submitLoginForm() {
         let self = this;
         // console.log(this.loginForm);
@@ -180,8 +190,16 @@
           // setTimeout(function(){console.log('intimeout',self.userInfo.id)},1000) //WHY VALUE HERE!!!!!!!??????
         });
       },
-      submitRegisterForm() {},
-      submitAvatarForm() {},
+      submitRegisterForm() {
+        this.$store.dispatch('registerUser',{registerInfo:this.registerForm}).then(()=>{
+          self.registerFormVisible = false;
+        });
+      },
+      submitUpdateForm() {
+        this.$store.dispatch('updateUser',{updateInfo:this.updateForm}).then(()=>{
+          self.updateFormVisible = false;
+        });
+      },
       imageuploaded(){},
     },
     created(){
