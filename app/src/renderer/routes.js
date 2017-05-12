@@ -4,6 +4,11 @@ export default [
     name: 'home-page',
     component: require('components/HomePageView'),
   },
+  {
+    path: '/',
+    name: 'perform-page',
+    component: require('components/PerformPageView'),
+  },
   // {
   //   path: '/',
   //   name: 'landing-page',
