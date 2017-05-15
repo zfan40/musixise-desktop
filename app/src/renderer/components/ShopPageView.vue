@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    PerformPage
+    ShopPage
   </div>
 </template>
 

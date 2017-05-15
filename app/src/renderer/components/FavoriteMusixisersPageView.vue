@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    PerformPage
+    FavoriteMusixisersPage
   </div>
 </template>
 

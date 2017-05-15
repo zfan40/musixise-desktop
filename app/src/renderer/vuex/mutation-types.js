@@ -3,3 +3,9 @@ export const INCREMENT_MAIN_COUNTER = 'INCREMENT_MAIN_COUNTER';
 
 export const UPDATE_USER = 'UPDATE_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
+
+export const SHOW_DIALOG = 'SHOW_DIALOG';
+export const HIDE_DIALOG = 'HIDE_DIALOG';
+
+// midi device plug unplug
+export const UPDATE_DEVICE = 'UPDATE_DEVICE';

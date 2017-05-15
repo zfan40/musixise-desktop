@@ -16,6 +16,7 @@ import VueAxios from 'vue-axios';
 //  vue resource is seemingly no better than axios
 // import Resource from 'vue-resource';
 
+import MIDIDevice from './components/MusixiseHelper/mididevice.js'
 
 Vue.use(Electron);
 // Vue.use(Resource);
@@ -23,6 +24,7 @@ Vue.use(Router);
 Vue.use(ElementUI);
 Vue.use(FlagIcon);
 Vue.use(VueAxios, axios);
+Vue.use(MIDIDevice);
 
 Vue.config.debug = true;
 
