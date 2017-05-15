@@ -14,9 +14,9 @@ function createWindow() {
    //not '~/Library/Application/.....'   妈蛋
   BrowserWindow.addDevToolsExtension('/Users/ziwenfan/Library/Application\ Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/3.1.2_0');
   mainWindow = new BrowserWindow({
-    minHeight: 600,
-    minWidth: 600,
+    titleBarStyle:'hidden-inset'
   });
+  mainWindow.setMinimumSize(950,600);
   mainWindow.loadURL(winURL);
   mainWindow.on('closed', () => {
     mainWindow = null;
