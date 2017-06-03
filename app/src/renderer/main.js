@@ -16,6 +16,9 @@ import VueAxios from 'vue-axios';
 //  vue resource is seemingly no better than axios
 // import Resource from 'vue-resource';
 
+import VueSocketio from 'vue-socket.io';
+Vue.use(VueSocketio, 'http://io.musixise.com');
+
 import MIDIDevice from './components/MusixiseHelper/mididevice.js'
 
 Vue.use(Electron);

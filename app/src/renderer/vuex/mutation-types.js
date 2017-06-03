@@ -9,3 +9,5 @@ export const HIDE_DIALOG = 'HIDE_DIALOG';
 
 // midi device plug unplug
 export const UPDATE_DEVICE = 'UPDATE_DEVICE';
+export const UPDATE_LIVE_STATUS = 'UPDATE_LIVE_STATUS';
+export const UPDATE_RECORD_STATUS = 'UPDATE_RECORD_STATUS';

@@ -35,7 +35,7 @@ export default [
         // when /live is match
         path : 'perform',
         components:{
-          'sidebar-section':require('components/SideBarView/index'),
+          'sidebar-section':require('components/PerformSideBarView/index'),
           'content-section':require('components/PerformPageView')
         }
       },
