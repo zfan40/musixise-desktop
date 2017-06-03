@@ -17,28 +17,28 @@
 </template>
 
 <script>
-import NavigationBar from './NavigationBarView'
-import UserForms from './UserFormView'
-  export default {
-    components: {
-      'navigation-bar':NavigationBar,
-      'user-form':UserForms
-    },
-    computed:{
+import NavigationBar from './NavigationBarView';
+import UserForms from './UserFormView';
+export default {
+  components: {
+    'navigation-bar': NavigationBar,
+    'user-form': UserForms,
+  },
+  computed: {
 
-    },
-    data() {
-      return {
+  },
+  data() {
+    return {
 
-      };
-    },
-    methods: {
+    };
+  },
+  methods: {
 
-    },
-    created(){
+  },
+  created() {
 
-    }
-  };
+  },
+};
 </script>
 
 <style>

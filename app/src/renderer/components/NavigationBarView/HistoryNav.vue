@@ -10,12 +10,12 @@
     data() {
       return {};
     },
-    computed:{
+    computed: {
 
     },
-    methods:{
+    methods: {
 
-    }
+    },
   };
 </script>
 

@@ -79,6 +79,8 @@ let rendererConfig = {
     ]
   },
   plugins: [
+    new webpack.IgnorePlugin(/vertx/),
+    new webpack.IgnorePlugin(/ajv/),
     new ExtractTextPlugin('styles.css'),
     new HtmlWebpackPlugin({
       filename: 'index.html',

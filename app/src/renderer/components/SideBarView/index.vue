@@ -14,10 +14,10 @@
   import MenuTwo from './MenuTwo';
 
   export default {
-    components:{
-      'avatar-menu':AvatarMenu,
-      'menu-one':MenuOne,
-      'menu-two':MenuTwo,
+    components: {
+      'avatar-menu': AvatarMenu,
+      'menu-one': MenuOne,
+      'menu-two': MenuTwo,
     },
     created() {
       console.log('--- SideBarView Init ---');

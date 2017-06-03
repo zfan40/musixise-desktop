@@ -6,15 +6,15 @@ const state = {
 };
 
 const mutations = {
-  [types.UPDATE_USER](state, {userInfo}){ //{a}相当于{'a':a}
+  [types.UPDATE_USER](state, { userInfo }) { // {a}相当于{'a':a}
     // console.log('mutation: update-user',userInfo)
     Object.keys(userInfo).forEach((key) => {
       // console.log(userInfo.key);//妈了b，这里不能.key,只能[key],因为key是String
-      Vue.set(state.userInfo,key,userInfo[key]);//use set,instead of value assignment
+      Vue.set(state.userInfo, key, userInfo[key]);// use set,instead of value assignment
       // state.userInfo.key = userInfo.key;
     });
   },
-  [types.LOGOUT_USER](state){
+  [types.LOGOUT_USER](state) {
     console.log('mutation,logout user');
     state.userInfo = {};
   },

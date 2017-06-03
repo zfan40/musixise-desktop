@@ -12,10 +12,10 @@
     data() {
       return {};
     },
-    computed:{
+    computed: {
       userInfo() {
-        return this.$store.state.user.userInfo
-      }
+        return this.$store.state.user.userInfo;
+      },
     },
   };
 </script>

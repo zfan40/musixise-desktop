@@ -9,3 +9,6 @@ export const HIDE_DIALOG = 'HIDE_DIALOG';
 
 // midi device plug unplug
 export const UPDATE_DEVICE = 'UPDATE_DEVICE';
+
+// recommend page
+export const RECOMMEND_LOADED = 'RECOMMEND_LOADED';

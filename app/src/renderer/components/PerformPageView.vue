@@ -10,19 +10,19 @@
     components: {
 
     },
-    computed:{
+    computed: {
 
     },
     data() {
-      return {}
+      return {};
     },
 
     methods: {
 
     },
-    created(){
+    created() {
 
-    }
+    },
   };
 </script>
 

@@ -34,40 +34,40 @@
     data() {
       return {
         registerForm: {
-          username:'',
-          password:'',
-          realname:'',
-          tel:null,
-          email:'',
-          gender:null,
-          birth:null,
-          nation:null,
-          smallAvatar:'',
-          largeAvatar:'',
-          brief:null,
+          username: '',
+          password: '',
+          realname: '',
+          tel: null,
+          email: '',
+          gender: null,
+          birth: null,
+          nation: null,
+          smallAvatar: '',
+          largeAvatar: '',
+          brief: null,
         },
         formLabelWidth: '120px',
       };
     },
-    computed:{
+    computed: {
       registerFormVisible() {
-        return this.$store.state.dialog.registeruser
-      }
+        return this.$store.state.dialog.registeruser;
+      },
     },
-    methods:{
-      handleClose(){
-        //cuz registerrFormVisible is bind with state, it cannot close automatically, we need to close in this before-close event
+    methods: {
+      handleClose() {
+        // cuz registerrFormVisible is bind with state, it cannot close automatically, we need to close in this before-close event
         this.hideRegisterDialog();
       },
-      hideRegisterDialog(){
-        this.$store.commit('HIDE_DIALOG',{type:'registeruser'});
+      hideRegisterDialog() {
+        this.$store.commit('HIDE_DIALOG', { type: 'registeruser' });
       },
-      submitRegisterForm(){
-        let self = this;
-        this.$store.dispatch('registerUser',{registerInfo:this.registerForm}).then(()=>{
+      submitRegisterForm() {
+        const self = this;
+        this.$store.dispatch('registerUser', { registerInfo: this.registerForm }).then(() => {
           self.hideRegisterDialog();
         });
-      }
+      },
     },
   };
 </script>

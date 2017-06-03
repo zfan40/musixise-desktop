@@ -12,36 +12,36 @@
   export default {
     data() {
       return {
-        updateFormHeader:{
+        updateFormHeader: {
           dataType: 'json',
           type: 'POST',
         },
-        updateForm:{
-          url:'',
+        updateForm: {
+          url: '',
         },
         formLabelWidth: '120px',
       };
     },
-    computed:{
+    computed: {
       updateFormVisible() {
-        return this.$store.state.dialog.updateuser
-      }
+        return this.$store.state.dialog.updateuser;
+      },
     },
-    methods:{
-      handleClose(){
-        //cuz registerrFormVisible is bind with state, it cannot close automatically, we need to close in this before-close event
+    methods: {
+      handleClose() {
+        // cuz registerrFormVisible is bind with state, it cannot close automatically, we need to close in this before-close event
         this.hideUpdateDialog();
       },
-      hideUpdateDialog(){
-        this.$store.commit('HIDE_DIALOG',{type:'updateuser'});
+      hideUpdateDialog() {
+        this.$store.commit('HIDE_DIALOG', { type: 'updateuser' });
       },
-      submitUpdateForm(){
-        let self = this;
-        this.$store.dispatch('updateUser',{updateInfo:this.updateForm}).then(()=>{
+      submitUpdateForm() {
+        const self = this;
+        this.$store.dispatch('updateUser', { updateInfo: this.updateForm }).then(() => {
           self.hideUpdateDialog();
         });
       },
-      imageuploaded(){},
+      imageuploaded() {},
     },
   };
 </script>

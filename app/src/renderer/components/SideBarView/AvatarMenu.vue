@@ -38,43 +38,43 @@
   export default {
     data() {
       return {
-        popoverVisible:false
+        popoverVisible: false,
       };
     },
-    computed:{
+    computed: {
       userInfo() {
-        return this.$store.state.user.userInfo
-      }
+        return this.$store.state.user.userInfo;
+      },
     },
-    methods:{
-      hidePopOver(){
+    methods: {
+      hidePopOver() {
         this.popoverVisible = false;
       },
-      perform(){
-        this.$router.push('/perform')
+      perform() {
+        this.$router.push('/perform');
       },
-      register(){
+      register() {
         this.hidePopOver();
-        //pop register dialog (this is a sync, no need for dispatch)
-        this.$store.commit('SHOW_DIALOG',{type:'registeruser'});
+        // pop register dialog (this is a sync, no need for dispatch)
+        this.$store.commit('SHOW_DIALOG', { type: 'registeruser' });
       },
-      login(){
+      login() {
         this.hidePopOver();
-        //pop login dialog
-        this.$store.commit('SHOW_DIALOG',{type:'loginuser'});
+        // pop login dialog
+        this.$store.commit('SHOW_DIALOG', { type: 'loginuser' });
       },
-      update(){
+      update() {
         this.hidePopOver();
-        //pop update dialog
-        this.$store.commit('SHOW_DIALOG',{type:'updateuser'});
+        // pop update dialog
+        this.$store.commit('SHOW_DIALOG', { type: 'updateuser' });
       },
-      logout(){
+      logout() {
         this.hidePopOver();
-        //directly logout
+        // directly logout
         this.$store.dispatch('logoutUser')
-          .then(()=>{this.$message({message: '登出成功',type: 'success',});})
+          .then(() => { this.$message({ message: '登出成功', type: 'success' }); });
       },
-    }
+    },
   };
 </script>
 

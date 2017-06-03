@@ -18,10 +18,10 @@
   import Setting from './Setting';
 
   export default {
-    components:{
-      'history-nav':HistoryNav,
-      'search-input':SearchInput,
-      'setting':Setting,
+    components: {
+      'history-nav': HistoryNav,
+      'search-input': SearchInput,
+      setting: Setting,
     },
     created() {
       console.log('--- NavigationBarView Init ---');

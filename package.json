@@ -94,6 +94,7 @@
     "karma-webpack": "^2.0.1",
     "mocha": "^3.0.2",
     "node-sass": "^4.5.2",
+    "node-vibrant": "^3.0.0-alpha.2",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.13.1",
     "tree-kill": "^1.1.0",

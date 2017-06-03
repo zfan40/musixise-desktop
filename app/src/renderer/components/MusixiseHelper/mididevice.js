@@ -1,16 +1,15 @@
 function plugin(Vue) {
+  if (plugin.installed) return;
 
-  if (plugin.installed) return
-
-  var midiAccess = null; //global MIDIAccess object
+  let midiAccess = null; // global MIDIAccess object
 
   const MIDIDevice = new Vue({
-    data(){
+    data() {
       return {
-        activeDevices:[],
-      }
+        activeDevices: [],
+      };
     },
-    created(){
+    created() {
       if (navigator.requestMIDIAccess) {
         navigator.requestMIDIAccess().then(this.onMIDISuccess, this.onMIDIFailure);
       } else {
@@ -18,48 +17,47 @@ function plugin(Vue) {
       }
     },
     methods: {
-      onMIDISuccess(midi){
-        let self = this;
+      onMIDISuccess(midi) {
+        const self = this;
         console.log('web midi inited');
         midiAccess = midi;
-        let inputs = midiAccess.inputs.values();
+        const inputs = midiAccess.inputs.values();
         self.activeDevices = [];
         for (let input = inputs.next(); input && !input.done; input = inputs.next()) {
           self.activeDevices.push(input);
-          input.value.onmidimessage = function(event){self.$emit('midiMsg',event)}
+          input.value.onmidimessage = function (event) { self.$emit('midiMsg', event); };
         }
         // console.log(self.activeDevices);
         self.$emit('midiStateChange');
-        midiAccess.onstatechange = function(event){
-
+        midiAccess.onstatechange = function (event) {
           console.log(event);
-          let inputs = midiAccess.inputs.values();
+          const inputs = midiAccess.inputs.values();
           self.activeDevices = [];
           for (let input = inputs.next(); input && !input.done; input = inputs.next()) {
             self.activeDevices.push(input);
-            input.value.onmidimessage = function(event){self.$emit('midiMsg',event)}
+            input.value.onmidimessage = function (event) { self.$emit('midiMsg', event); };
           }
           self.$emit('midiStateChange');
-        }
+        };
       },
-      onMIDIFailure(msg){
+      onMIDIFailure(msg) {
         console.log('web midi rejected');
       },
-    }
-  })
+    },
+  });
 
   // Extend `Vue.prototype` to include our global event bus.
   Object.defineProperty(Vue.prototype, '$MIDIDevice', {
     get() {
-      return MIDIDevice
-    }
-  })
+      return MIDIDevice;
+    },
+  });
 }
 
 // Check for `window.Vue`
 if (typeof window !== 'undefined' && window.Vue) {
   // Install plugin automatically.
-  window.Vue.use(plugin)
+  window.Vue.use(plugin);
 }
 
-export default plugin
+export default plugin;

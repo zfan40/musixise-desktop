@@ -9,17 +9,17 @@
   export default {
     data() {
       return {
-        input:''
+        input: '',
       };
     },
-    computed:{
+    computed: {
 
     },
-    methods:{
-      search(){
-        console.log('to search with key: '+this.input);
-      }
-    }
+    methods: {
+      search() {
+        console.log(`to search with key: ${this.input}`);
+      },
+    },
   };
 </script>
 

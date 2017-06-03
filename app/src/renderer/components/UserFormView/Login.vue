@@ -26,31 +26,31 @@
         formLabelWidth: '120px',
       };
     },
-    computed:{
+    computed: {
       loginFormVisible() {
-        return this.$store.state.dialog.loginuser
-      }
+        return this.$store.state.dialog.loginuser;
+      },
     },
-    methods:{
-      handleClose(){
-        //cuz registerrFormVisible is bind with state, it cannot close automatically, we need to close in this before-close event
+    methods: {
+      handleClose() {
+        // cuz registerrFormVisible is bind with state, it cannot close automatically, we need to close in this before-close event
         this.hideLoginDialog();
       },
-      hideLoginDialog(){
-        this.$store.commit('HIDE_DIALOG',{type:'loginuser'});
+      hideLoginDialog() {
+        this.$store.commit('HIDE_DIALOG', { type: 'loginuser' });
       },
-      submitLoginForm(){
-        let self = this;
+      submitLoginForm() {
+        const self = this;
         // console.log(this.loginForm);
-        this.$store.dispatch('loginUser',{loginInfo:this.loginForm})
-          .then((res)=>{
+        this.$store.dispatch('loginUser', { loginInfo: this.loginForm })
+          .then((res) => {
             console.log(res);
             self.hideLoginDialog();
-            self.$message({message: '登录成功',type: 'success',})
-          },()=>{
-            self.$message({message: '登录失败',type: 'error',})
+            self.$message({ message: '登录成功', type: 'success' });
+          }, () => {
+            self.$message({ message: '登录失败', type: 'error' });
           });
-      }
+      },
     },
   };
 </script>

@@ -12,10 +12,10 @@
   import Update from './Update';
 
   export default {
-    components:{
-      'login':Login,
-      'register':Register,
-      'update':Update,
+    components: {
+      login: Login,
+      register: Register,
+      update: Update,
     },
     created() {
       console.log('--- UserFormView Init ---');

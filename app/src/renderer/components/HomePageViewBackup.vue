@@ -114,23 +114,23 @@
 <script>
   import VueCoreImageUpload from 'vue-core-image-upload';
 
-  //test
-  import {song} from './MusixiseHelper/songs/her'
+  // test
+  import { song } from './MusixiseHelper/songs/her';
 
   export default {
     components: {
       'vue-core-image-upload': VueCoreImageUpload,
     },
-    computed:{
+    computed: {
       userInfo() {
         if (this.$store.state.user.userInfo.userId) {
           this.$message({
             message: '登录成功',
-            type: 'success'
+            type: 'success',
           });
         }
-        return this.$store.state.user.userInfo
-      }
+        return this.$store.state.user.userInfo;
+      },
     },
     data() {
       return {
@@ -141,30 +141,30 @@
         // },
         loginFormVisible: false,
         registerFormVisible: false,
-        updateFormVisible:false,
-        updateFormHeader:{
+        updateFormVisible: false,
+        updateFormHeader: {
           dataType: 'json',
           type: 'POST',
         },
-        updateForm:{
-          url:'',
+        updateForm: {
+          url: '',
         },
         loginForm: {
           username: '',
           password: '',
         },
         registerForm: {
-          username:'',
-          password:'',
-          realname:'',
-          tel:null,
-          email:'',
-          gender:null,
-          birth:null,
-          nation:null,
-          smallAvatar:'',
-          largeAvatar:'',
-          brief:null,
+          username: '',
+          password: '',
+          realname: '',
+          tel: null,
+          email: '',
+          gender: null,
+          birth: null,
+          nation: null,
+          smallAvatar: '',
+          largeAvatar: '',
+          brief: null,
         },
         formLabelWidth: '120px',
       };
@@ -177,16 +177,16 @@
       login() { this.loginFormVisible = true; },
       logout() {
         this.$store.dispatch('logoutUser')
-        .then(()=>{this.$message({message: '登出成功',type: 'success',});})
+        .then(() => { this.$message({ message: '登出成功', type: 'success' }); });
       },
       register() { this.registerFormVisible = true; },
       updateInfo() { this.updateFormVisible = true; },
       submitLoginForm() {
-        let self = this;
+        const self = this;
         // console.log(this.loginForm);
-        this.$store.dispatch('loginUser',{loginInfo:this.loginForm}).then(()=>{
+        this.$store.dispatch('loginUser', { loginInfo: this.loginForm }).then(() => {
           self.loginFormVisible = false;
-          //TODO TO FIGURE OUT....
+          // TODO TO FIGURE OUT....
           // console.log('after login, state=>user:',self.$store.state.user);//WHY I CAN SEE VALUE HERE!!!!!?????
           // console.log('2',self.userInfo);
           // console.log('3',self.userInfo.id);//WHY NO VALUE!!!!!??????
@@ -195,51 +195,50 @@
         });
       },
       submitRegisterForm() {
-        this.$store.dispatch('registerUser',{registerInfo:this.registerForm}).then(()=>{
+        this.$store.dispatch('registerUser', { registerInfo: this.registerForm }).then(() => {
           self.registerFormVisible = false;
         });
       },
       submitUpdateForm() {
-        this.$store.dispatch('updateUser',{updateInfo:this.updateForm}).then(()=>{
+        this.$store.dispatch('updateUser', { updateInfo: this.updateForm }).then(() => {
           self.updateFormVisible = false;
         });
       },
-      imageuploaded(){},
+      imageuploaded() {},
     },
-    created(){
-      console.log('inital state=>user:',this.$store.state.user);
-      console.log('test mudcube midi',MIDI);
+    created() {
+      console.log('inital state=>user:', this.$store.state.user);
+      console.log('test mudcube midi', MIDI);
       MIDI.loadPlugin({
-        soundfontUrl: "/soundfont/",
-        instrument: "acoustic_grand_piano",
-        onprogress: function(state, progress) {
+        soundfontUrl: '/soundfont/',
+        instrument: 'acoustic_grand_piano',
+        onprogress(state, progress) {
           console.log(state, progress);
         },
-        onsuccess: function() {
-          var delay = 0; // play one note every quarter second
-          var note = 50; // the MIDI note
-          var velocity = 127; // how hard the note hits
+        onsuccess() {
+          const delay = 0; // play one note every quarter second
+          const note = 50; // the MIDI note
+          const velocity = 127; // how hard the note hits
           MIDI.setVolume(0, 127);
-          // MIDI.noteOn(0, note, velocity, delay);
-          // MIDI.noteOff(0, note, delay + 0.75);
-          let tune = JSON.parse(song);
-          console.log('xiaoquz',tune.length);
-          let counter = tune.length;
+        // MIDI.noteOn(0, note, velocity, delay);
+        // MIDI.noteOff(0, note, delay + 0.75);
+          const tune = JSON.parse(song);
+          console.log('xiaoquz', tune.length);
+          const counter = tune.length;
 
-          for (var i =0;i<=counter-1;i++) {
-            (function(i) {
-              setTimeout(function(){
-                if (tune[i][0]==144) {
-                  MIDI.noteOn(0,tune[i][1],tune[i][2],0)
-                } else if (tune[i][0]==128) {
-                  MIDI.noteOff(0,tune[i][1],tune[i][2],0)
+          for (let i = 0; i <= counter - 1; i++) {
+            (function (i) {
+              setTimeout(() => {
+                if (tune[i][0] == 144) {
+                  MIDI.noteOn(0, tune[i][1], tune[i][2], 0);
+                } else if (tune[i][0] == 128) {
+                  MIDI.noteOff(0, tune[i][1], tune[i][2], 0);
                 }
-              },tune[i][3])
-            })(i);
+              }, tune[i][3]);
+            }(i));
           }
-
-        }
+        },
       });
-    }
+    },
   };
 </script>
