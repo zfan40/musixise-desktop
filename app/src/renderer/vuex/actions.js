@@ -33,27 +33,30 @@ export const loginUser = ({ commit }, { loginInfo }) => {
   });
 };
 
-export const registerUser = ({ commit, dispatch }, { registerInfo }) => {
-  console.log('sdfsdf', registerInfo);
-  Vue.axios.post('//api.musixise.com/api/user/register', JSON.stringify(registerInfo), req_config)
-    .then((response) => {
-      console.log('action: register result:', response.data);
-      dispatch('loginUser', { loginInfo: registerInfo });
-    });
+export const registerUser = ({ commit,dispatch },{ registerInfo }) => {
+  console.log('sdfsdf',registerInfo);
+  return new Promise((resolve,reject) => {
+    Vue.axios.post('//api.musixise.com/api/user/register',JSON.stringify(registerInfo),req_config)
+      .then((response) => {
+        console.log('action: register result:', response.data);
+        if(response.data.errmsg) {
+          reject(response.data.errmsg);
+          return;
+        }
+        dispatch('loginUser',{loginInfo:registerInfo})
+      },()=>{reject()})
+  })
 };
 
-export const updateUser = ({ commit }, { updateInfo }) => {
-  console.log('sdfsdf', updateInfo);
-  Vue.axios.post('//api.musixise.com/api/user/authenticate', JSON.stringify(updateInfo), req_config)
-    .then((response) => {
-      console.log('authenticate user:', response.data);
-      req_config.headers.Authorization = `Bearer ${response.data.id_token}`;// 验证通过
-      return Vue.axios.post('//api.musixise.com/api/user/getInfo', '', req_config);
-    })
-    .then((response) => {
-      console.log('login user:', response.data);
-      commit(types.UPDATE_USER, { userInfo: response.data.data });
-    });
+export const updateUser = ({ commit },{ updateInfo }) => {
+  console.log('sdfsdf',updateInfo);
+  return new Promise((resoleve,reject) => {
+    Vue.axios.post('//api.musixise.com/api/user/updateInfo',JSON.stringify(updateInfo),req_config)
+      .then((response) => {
+        console.log('update user successful:', response.data);
+        // commit(types.UPDATE_USER,{userInfo:response.data.data});
+      },()=>{reject()})
+  })
 };
 
 export const logoutUser = ({ commit }) => {

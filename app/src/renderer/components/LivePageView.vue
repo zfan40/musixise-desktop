@@ -1,7 +1,6 @@
 <template>
   <div class="">
-    LivePage  currently as perform page
-    {{midiDevices.length}}
+    LivePage
   </div>
 </template>
 

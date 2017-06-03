@@ -12,3 +12,7 @@ export const UPDATE_DEVICE = 'UPDATE_DEVICE';
 
 // recommend page
 export const RECOMMEND_LOADED = 'RECOMMEND_LOADED';
+
+// perform related
+export const UPDATE_LIVE_STATUS = 'UPDATE_LIVE_STATUS';
+export const UPDATE_RECORD_STATUS = 'UPDATE_RECORD_STATUS';

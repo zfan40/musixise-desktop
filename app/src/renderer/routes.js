@@ -33,11 +33,11 @@ export default [
       },
       {
         // when /live is match
-        path: 'perform',
-        components: {
-          'sidebar-section': require('components/SideBarView/index'),
-          'content-section': require('components/PerformPageView'),
-        },
+        path : 'perform',
+        components:{
+          'sidebar-section':require('components/PerformSideBarView/index'),
+          'content-section':require('components/PerformPageView')
+        }
       },
       {
         // when /shop is match

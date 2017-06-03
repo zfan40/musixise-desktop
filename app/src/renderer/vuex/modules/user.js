@@ -13,6 +13,9 @@ const mutations = {
       Vue.set(state.userInfo, key, userInfo[key]);// use set,instead of value assignment
       // state.userInfo.key = userInfo.key;
     });
+    // if(userInfo['userId']) {
+    //   Vue.set(state.userInfo,'uid',userInfo['userId'])
+    // }
   },
   [types.LOGOUT_USER](state) {
     console.log('mutation,logout user');

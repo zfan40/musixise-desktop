@@ -5,13 +5,13 @@
         <el-input placeholder="仅限英文数字字符" v-model="registerForm.username" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="用户名" :label-width="formLabelWidth">
-        <el-input placeholder="可中文" v-model="registerForm.realName" auto-complete="off"></el-input>
+        <el-input placeholder="可中文" v-model="registerForm.realname" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="密码" :label-width="formLabelWidth">
         <el-input type="password" placeholder="请输入密码" v-model="registerForm.password" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="重复密码" :label-width="formLabelWidth">
-        <el-input type="password" placeholder="请确认密码" auto-complete="off"></el-input>
+        <el-input type="password" placeholder="请确认密码" v-model="verifypassword" auto-complete="off"></el-input>
       </el-form-item>
       <el-form-item label="国籍" :label-width="formLabelWidth">
         <el-select v-model="registerForm.region" placeholder="请选择">
@@ -46,6 +46,7 @@
           largeAvatar: '',
           brief: null,
         },
+        verifypassword:'',
         formLabelWidth: '120px',
       };
     },
@@ -62,12 +63,24 @@
       hideRegisterDialog() {
         this.$store.commit('HIDE_DIALOG', { type: 'registeruser' });
       },
-      submitRegisterForm() {
-        const self = this;
-        this.$store.dispatch('registerUser', { registerInfo: this.registerForm }).then(() => {
+      submitRegisterForm(){
+        let self = this;
+        if (!self.registerForm.username||!self.registerForm.password||!self.verifypassword||!self.registerForm.realname) {
+          self.$message({message: '请填入必要信息',type: 'error',});
+          return;
+        }
+        if (!(self.registerForm.username).match(/^[\w\.@]{6,20}$/)){
+          self.$message({message: '用户名为6-20位数字字母',type: 'error',});
+          return;
+        }
+        if (self.verifypassword!=self.registerForm.password) {
+          self.$message({message: '两次密码输入不一致',type: 'error',});
+          return;
+        }
+        this.$store.dispatch('registerUser',{registerInfo:this.registerForm}).then(()=>{
           self.hideRegisterDialog();
-        });
-      },
+        },(errmsg)=>{self.$message({message: errmsg?errmsg:'注册账号失败',type: 'error',})});
+      }
     },
   };
 </script>
