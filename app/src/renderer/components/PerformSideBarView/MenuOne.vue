@@ -20,8 +20,8 @@
   export default {
     data() {
       return {
-        livemode:false,
-        recordmode:false,
+        livemode: false,
+        recordmode: false,
       };
     },
     computed: {
@@ -32,10 +32,10 @@
         return this.$store.state.perform;
       },
     },
-    methods:{
-      updateLiveMode(e){this.$store.commit('UPDATE_LIVE_STATUS',{status:e})},
-      updateRecordMode(e){this.$store.commit('UPDATE_RECORD_STATUS',{status:e})}
-    }
+    methods: {
+      updateLiveMode(e) { this.$store.commit('UPDATE_LIVE_STATUS', { status: e }); },
+      updateRecordMode(e) { this.$store.commit('UPDATE_RECORD_STATUS', { status: e }); },
+    },
   };
 </script>
 

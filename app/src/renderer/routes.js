@@ -28,16 +28,16 @@ export default [
         path: 'live',
         components: {
           'sidebar-section': require('components/SideBarView/index'),
-          'content-section': require('components/LivePageView'),
+          'content-section': require('components/StageListPageView'),
         },
       },
       {
         // when /live is match
-        path : 'perform',
-        components:{
-          'sidebar-section':require('components/PerformSideBarView/index'),
-          'content-section':require('components/PerformPageView')
-        }
+        path: 'perform',
+        components: {
+          'sidebar-section': require('components/PerformSideBarView/index'),
+          'content-section': require('components/PerformPageView'),
+        },
       },
       {
         // when /shop is match

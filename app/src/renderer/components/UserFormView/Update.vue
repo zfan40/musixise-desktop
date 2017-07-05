@@ -38,52 +38,51 @@
           dataType: 'json',
           type: 'POST',
         },
-        updateForm:{
-          tel:'',
-          email:'',
-          gender:'',
-          birth:'',
-          nation:'',
-          smallAvatar:'',
-          largeAvatar:'',
-          brief:'',
+        updateForm: {
+          tel: '',
+          email: '',
+          gender: '',
+          birth: '',
+          nation: '',
+          smallAvatar: '',
+          largeAvatar: '',
+          brief: '',
         },
         formLabelWidth: '120px',
-        countryMap: {'Japan':'日本','America':'美国','China':'中国','Germany':'德国'},
+        countryMap: { Japan: '日本', America: '美国', China: '中国', Germany: '德国' },
         countries: [{
           value: 'China',
           label: '中国',
-          iso:'cn',
+          iso: 'cn',
         }, {
           value: 'Japan',
           label: '日本',
-          iso:'jp',
+          iso: 'jp',
         }, {
           value: 'America',
           label: '美国',
-          iso:'us',
+          iso: 'us',
         }, {
           value: 'Germany',
           label: '德国',
-          iso:'de'
+          iso: 'de',
         }],
-        nationvalue:'',
+        nationvalue: '',
       };
     },
     computed: {
       updateFormVisible() {
-        return this.$store.state.dialog.updateuser
+        return this.$store.state.dialog.updateuser;
       },
       updateFormPlaceholder() {
-        return this.$store.state.user.userInfo
+        return this.$store.state.user.userInfo;
       },
     },
-    watch:{
-      nationvalue(val){//for no reason.... need to do this, cannot bind directly...
-
-        this.$set(this.updateForm,'nation',val);
+    watch: {
+      nationvalue(val) { // for no reason.... need to do this, cannot bind directly...
+        this.$set(this.updateForm, 'nation', val);
         console.log(this.updateForm);
-      }
+      },
     },
     methods: {
       handleClose() {
@@ -97,15 +96,15 @@
         const self = this;
         this.$store.dispatch('updateUser', { updateInfo: this.updateForm }).then(() => {
           self.hideUpdateDialog();
-          self.$message({message: '更新信息成功',type: 'success',})
-        },()=>{self.$message({message: '更新信息失败',type: 'error',})});
+          self.$message({ message: '更新信息成功', type: 'success' });
+        }, () => { self.$message({ message: '更新信息失败', type: 'error' }); });
       },
       imageuploaded() {},
     },
-    mounted(){
+    mounted() {
       // others can use placeholder, no interference with two-way binding, but radio, v-model is annoying..
       this.updateForm.gender = this.updateFormPlaceholder.gender;
-    }
+    },
   };
 </script>
 

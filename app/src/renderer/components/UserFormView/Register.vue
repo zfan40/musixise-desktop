@@ -46,7 +46,7 @@
           largeAvatar: '',
           brief: null,
         },
-        verifypassword:'',
+        verifypassword: '',
         formLabelWidth: '120px',
       };
     },
@@ -63,24 +63,24 @@
       hideRegisterDialog() {
         this.$store.commit('HIDE_DIALOG', { type: 'registeruser' });
       },
-      submitRegisterForm(){
-        let self = this;
-        if (!self.registerForm.username||!self.registerForm.password||!self.verifypassword||!self.registerForm.realname) {
-          self.$message({message: '请填入必要信息',type: 'error',});
+      submitRegisterForm() {
+        const self = this;
+        if (!self.registerForm.username || !self.registerForm.password || !self.verifypassword || !self.registerForm.realname) {
+          self.$message({ message: '请填入必要信息', type: 'error' });
           return;
         }
-        if (!(self.registerForm.username).match(/^[\w\.@]{6,20}$/)){
-          self.$message({message: '用户名为6-20位数字字母',type: 'error',});
+        if (!(self.registerForm.username).match(/^[\w\.@]{6,20}$/)) {
+          self.$message({ message: '用户名为6-20位数字字母', type: 'error' });
           return;
         }
-        if (self.verifypassword!=self.registerForm.password) {
-          self.$message({message: '两次密码输入不一致',type: 'error',});
+        if (self.verifypassword != self.registerForm.password) {
+          self.$message({ message: '两次密码输入不一致', type: 'error' });
           return;
         }
-        this.$store.dispatch('registerUser',{registerInfo:this.registerForm}).then(()=>{
+        this.$store.dispatch('registerUser', { registerInfo: this.registerForm }).then(() => {
           self.hideRegisterDialog();
-        },(errmsg)=>{self.$message({message: errmsg?errmsg:'注册账号失败',type: 'error',})});
-      }
+        }, (errmsg) => { self.$message({ message: errmsg || '注册账号失败', type: 'error' }); });
+      },
     },
   };
 </script>

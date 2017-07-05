@@ -12,9 +12,9 @@
   import MenuOne from './MenuOne';
 
   export default {
-    components:{
-      'avatar-menu':AvatarMenu,
-      'menu-one':MenuOne,
+    components: {
+      'avatar-menu': AvatarMenu,
+      'menu-one': MenuOne,
     },
     created() {
       console.log('--- Perform SideBarView Init ---');

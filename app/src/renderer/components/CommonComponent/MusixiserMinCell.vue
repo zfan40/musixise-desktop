@@ -12,16 +12,30 @@
     },
     data() {
       return {
-        title: 'musixiser-min-cell',
+        title: 'artist-song-cell',
         marqueeStyle: '',
+        maskshow: false,
       };
     },
     methods: {
       onclickcell() {
-        // this.musixiserObj.userId
+        if (this.enableListen) {
+          location.href = `musixise://play?id=${this.workObj.id}`;
+        } else {
+          alert('just preview');
+        }
+      },
+      onhovercell() {
+        this.maskshow = true;
+        console.log('showon');
+      },
+      onleavecell() {
+        this.maskshow = false;
+        console.log('showoff');
       },
       getImageColorCSS(imgurl) {
         const self = this;
+        console.log('aiyoyo', imgurl);
         Vibrant.from(imgurl).getPalette()
           .then((palette) => {
             console.log(palette);
@@ -32,47 +46,43 @@
             } else if (palette.LightMuted) {
               self.marqueeStyle += `color:rgb(${palette.LightMuted._rgb.toString()});`;
             }
-          });
+          }).catch((err) => console.log(err));
       },
     },
     computed: {
     },
     created() {
     },
-    updated() {
-      // console.log(this.musixiserObj);
-    },
     mounted() {
       this.marqueeStyle = '';
-      this.getImageColorCSS(this.musixiserObj.smallAvatar);
-      console.log('a musixiser-min cell mounted');
+      this.getImageColorCSS(this.workObj.cover ? this.workObj.cover : this.workObj.owner.smallAvatar);
       if (this.$refs.insider && this.$refs.outsider && (this.$refs.insider.offsetWidth > this.$refs.outsider.offsetWidth)) {
         const t = `${(this.$refs.insider.offsetWidth) / MARQUEE_SPEED}s;`;
-        this.marqueeStyle += `-webkit-animation:marquee linear infinite;-o-animation:marquee linear infinite;animation:  marquee linear infinite;-webkit-animation-duration:${t}-o-animation-duration:${t}animation-duration:${t}`;
+        this.marqueeStyle += `-webkit-animation:marquee linear infinite;-o-animation:marquee linear infinite;animation:  marquee linear infinite;-webkit-animation-duration:${t}-o-animation-duration:${t}animation-duration:${t};`;
       } else {
-
+        this.marqueeStyle += '';
+        console.log(this.$refs.insider.offsetWidth);
       }
     },
     updated() {
-      // this.marqueeStyle = '';
-      // this.getImageColorCSS(this.musixiserObj.smallAvatar);
-      // console.log('a musixiser-min cell updated');
-      // if (this.$refs.insider&&this.$refs.outsider&&(this.$refs.insider.offsetWidth>this.$refs.outsider.offsetWidth)) {
-      //   var t = (this.$refs.insider.offsetWidth)/MARQUEE_SPEED +'s;';
-      //   this.marqueeStyle +=  '-webkit-animation:marquee linear infinite;-o-animation:marquee linear infinite;animation:  marquee linear infinite;-webkit-animation-duration:'+t+'-o-animation-duration:'+t+'animation-duration:'+t;
-      // } else {
-      //
-      // }
+
     },
   };
 </script>
 
+
+
+
 <template>
-    <div v-if="musixiserObj.userId" class="info" @click="onclickcell">
+    <div v-if="musixiserObj.userId" class="info" @click="onclickcell" @mouseover="onhovercell" @mouseleave="onleavecell">
         <img class="user-cover" :src="musixiserObj.smallAvatar"></img>
+        <transition name="fade">
+          <div v-show="maskshow" class="user-mask">
+            <span ref="outsider" class="user-body-desc"><p ref="insider" :style="marqueeStyle">{{musixiserObj.description?musixiserObj.description:'这家伙很屌什么都没写hlibeurig seuigs sgh ud skeh ugs sdj gkshrgksuygrsu g k sgv '}}</p></span>
+          </div>
+        </transition>
         <div class="user-body">
           <span class="user-body-title">{{musixiserObj.realname}}</span>
-          <span ref="outsider" class="user-body-desc"><p ref="insider" :style="marqueeStyle">{{musixiserObj.description?musixiserObj.description:'这家伙很屌什么都没写hlibeurig seuigs sgh ud skeh ugs sdj gkshrgksuygrsu g k sgv '}}</p></span>
         </div>
     </div>
 </template>
@@ -80,38 +90,50 @@
 <style lang="scss" scoped>
 
   .info {
-    margin:.2rem .2rem .2rem .5rem;
     display: flex;
+    cursor: pointer;
     align-items:stretch;
-    font-size: .373rem;
-    line-height: .75rem;
-    height: 2.2rem;
-    border-radius: .2rem;
+    font-size: 16px;
+    line-height: 30px;
+    height: 150px;
+    border-radius: 5px;
     justify-content: space-between;
     background-color: #fff;
+    margin-bottom:20px;
     color: #000;
     /*margin: .4rem 0 .6rem;*/
     .user-cover {
       /*width:2.2rem;*/
       /*height: 2.2rem;*/
-      width:2.2rem;
-      border-radius:1.1rem;
+      width:150px;
     }
     .user-body {
-      width: 7.8rem;
+      position: absolute;;
+      width: 150px;
+      height: 150px;
       display:flex;
-      border-bottom:1px solid #e2e2e2;
-      flex-direction: column;
+      // flex-direction: column;
       justify-content:center;
-      margin: 0 .3rem;
+      align-items: center;
+      padding: 0 .3rem;
+      color:white;
+      z-index:2;
       .user-body-title {
         white-space: nowrap;
       }
+    }
+    .user-mask {
+      position: absolute;;
+      width: 150px;
+      height: 150px;
+      background-color:rgba(0,0,0,.6);
+      z-index:1;
       .user-body-desc {
+        text-align: center;
         position:relative;
         white-space: nowrap;
-        line-height: .8rem;
-        height: .8rem;
+        line-height: 28px;
+        height: 28px;
         overflow:hidden;
         color:#3d3d3d;
         p {
@@ -127,6 +149,15 @@
     }
     .user-extra {
       width: 1rem;
+    }
+
+
+    // transition
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .5s
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+      opacity: 0
     }
   }
 </style>

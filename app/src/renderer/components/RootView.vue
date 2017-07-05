@@ -67,6 +67,6 @@ export default {
     .navigation-section {position:fixed;background-color:black;top:0;width:100%;height:50px;padding-left:200px;z-index:2;-webkit-app-region: drag;}
     .playbar-section {position:fixed;background-color:azure;bottom:0;width:100%;height:70px;z-index:2;-webkit-app-region: drag;}
     .sidebar-section {position:fixed;background-color:#eef1f6;left:0;width:200px;height:100%;padding-top:60px;z-index:2;-webkit-app-region: drag;}
-    .content-section {position:fixed;background-color:white;width:100%;height:100%;padding:0 0 70px 200px;margin-top:50px;overflow-y:auto;z-index:1;}
+    .content-section {position:fixed;background-color:white;width:100%;height:100%;padding:0 0 120px 200px;margin-top:50px;overflow-y:auto;z-index:1;}
   }
 </style>

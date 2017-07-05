@@ -16,6 +16,7 @@
       return {
         title: 'artist-song-cell',
         marqueeStyle: '',
+        maskshow: false,
       };
     },
     methods: {
@@ -25,6 +26,14 @@
         } else {
           alert('just preview');
         }
+      },
+      onhovercell() {
+        this.maskshow = true;
+        console.log('showon');
+      },
+      onleavecell() {
+        this.maskshow = false;
+        console.log('showoff');
       },
       getImageColorCSS(imgurl) {
         const self = this;
@@ -71,11 +80,15 @@
 </script>
 
 <template>
-    <div v-if="workObj.id" class="info" @click="onclickcell">
+    <div v-if="workObj.id" class="info" @click="onclickcell" @mouseover="onhovercell" @mouseleave="onleavecell">
         <img class="work-cover" :src="workObj.cover?workObj.cover:workObj.owner.smallAvatar"></img>
+        <transition name="fade">
+          <div v-show="maskshow" class="work-mask">
+            <!-- <span ref="outsider" class="work-body-desc"><p ref="insider" :style="marqueeStyle">{{workObj.content}}</p></span> -->
+          </div>
+        </transition>
         <div class="work-body">
           <span class="work-body-title">{{workObj.title}}</span>
-          <span ref="outsider" class="work-body-desc"><p ref="insider" :style="marqueeStyle">{{workObj.content}}</p></span>
         </div>
     </div>
 </template>
@@ -84,34 +97,49 @@
 
   .info {
     display: flex;
+    cursor: pointer;
     align-items:stretch;
-    font-size: .373rem;
-    line-height: .75rem;
-    height: 2.2rem;
-    border-radius: .2rem;
+    font-size: 16px;
+    line-height: 30px;
+    height: 150px;
+    border-radius: 5px;
     justify-content: space-between;
     background-color: #fff;
+    margin-bottom:20px;
     color: #000;
     /*margin: .4rem 0 .6rem;*/
     .work-cover {
       /*width:2.2rem;*/
       /*height: 2.2rem;*/
-      width:2.2rem;
+      width:150px;
     }
     .work-body {
-      width: 7.8rem;
+      position: absolute;;
+      width: 150px;
+      height: 150px;
       display:flex;
-      flex-direction: column;
+      // flex-direction: column;
       justify-content:center;
+      align-items: center;
       padding: 0 .3rem;
+      color:white;
+      z-index:2;
       .work-body-title {
         white-space: nowrap;
       }
+    }
+    .work-mask {
+      position: absolute;;
+      width: 150px;
+      height: 150px;
+      background-color:rgba(0,0,0,.6);
+      z-index:1;
       .work-body-desc {
+        text-align: center;
         position:relative;
         white-space: nowrap;
-        line-height: .8rem;
-        height: .8rem;
+        line-height: 28px;
+        height: 28px;
         overflow:hidden;
         color:#3d3d3d;
         p {
@@ -127,6 +155,15 @@
     }
     .work-extra {
       width: 1rem;
+    }
+
+
+    // transition
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .5s
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+      opacity: 0
     }
   }
 </style>

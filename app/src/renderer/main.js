@@ -19,7 +19,7 @@ import VueAxios from 'vue-axios';
 import VueSocketio from 'vue-socket.io';
 Vue.use(VueSocketio, 'http://io.musixise.com');
 
-import MIDIDevice from './components/MusixiseHelper/mididevice.js'
+import MIDIDevice from './components/MusixiseHelper/mididevice.js';
 
 Vue.use(Electron);
 // Vue.use(Resource);

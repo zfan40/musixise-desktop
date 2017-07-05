@@ -22,11 +22,12 @@
         return this.$store.state.user.userInfo;
       },
     },
-    methods:{
-      terminate(){
-        this.$router.push('/live')
+    methods: {
+      terminate() {
+        // this.$socket.emit('disconnect');
+        this.$router.push('/live');
       },
-    }
+    },
   };
 </script>
 
