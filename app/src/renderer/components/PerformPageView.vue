@@ -1,47 +1,102 @@
 <template>
   <div class="perform-page-wrapper">
     <el-row>
-      <el-col :span="12"><div class="grid-content bg-purple chats">1</div></el-col>
-      <el-col :span="6"><div class="grid-content bg-purple requests">2</div></el-col>
-      <el-col :span="6"><div class="grid-content bg-purple gifts">3</div></el-col>
+      <el-col :span="12">
+        <div class="grid-content bg-purple chats">
+          {{currentAudienceAmount}}
+          <chats></chats>
+        </div>
+      </el-col>
+      <el-col :span="6">
+        <div class="grid-content bg-purple requests">
+          <requests></requests>        
+        </div>
+      </el-col>
+      <el-col :span="6">
+        <div class="grid-content bg-purple gifts">
+          <gifts></gifts>
+        </div>
+      </el-col>
+
     </el-row>
   </div>
 </template>
 
 <script>
-  window.recorder = [];
+  import Chats from './PerformPageView/Chats';
+  import Gifts from './PerformPageView/Gifts';
+  import Requests from './PerformPageView/Requests';
+
   export default {
     components: {
-
+      'chats': Chats,
+      'gifts': Gifts,
+      'requests': Requests,
     },
     data() {
-      return {};
+      return {
+        currentAudienceAmount:0,
+
+      };
     },
     computed: {
-      midiDevices() {
+      midiDevices() { // midi devices lists
         console.log('lllll');
         // return this.$MIDIDevice.activeDevices
         return this.$store.state.perform.deviceList;
       },
-      performState() {
+      performState() { //state of performing (recordMode/liveMode)
         return this.$store.state.perform;
       },
+      gifts() { // gifts received
+
+      },
+      chats() { // chats during performance
+
+      },
+      requests() { // music requests during performance
+
+      }
     },
 
     methods: {
-
+      setupSocketListener() {
+        let self = this;
+        //not socket on...
+        this.$options.sockets.AudienceCome = (data) => {
+            // this.currentAudienceAmount++
+            this.$store.commit('AUDIENCE_COME')
+        }
+        this.$options.sockets.AudienceLeave = (data) => {
+          // if (this.currentAudienceAmount <= 0) {
+          //     this.currentAudienceAmount = 0;
+          // } else {
+          //     this.currentAudienceAmount--;
+          // }
+          this.$store.commit('AUDIENCE_LEAVE')
+        }
+        this.$options.sockets.res_AudienceComment = (data) => {
+          console.log(data)
+            this.$store.commit('PUSH_CHATS', { data })
+        }
+        this.$options.sockets.res_AudienceOrderSong = (data) => {
+            console.log(data)
+            this.$store.commit('PUSH_REQUESTS', { data })
+        }
+        this.$options.sockets.res_AudienceGiveGift = (data) => {
+            this.$store.commit('PUSH_GIFTS', { data })
+        }
+      },
+      responseChat() {
+        this.$socket.emit('req_MusixiserComment', 'content');
+      },
+      respondRequestMusic() {
+        this.$socket.emit('req_MusixiserPickSong', { type: 1, audienceName: 's', songName: '世界的约束' });
+      },
     },
     created() {
       const self = this;
-      const userInfo = {
-        name: this.$store.state.user.userInfo.username,
-        realname: this.$store.state.user.userInfo.realname,
-        uid: this.$store.state.user.userInfo.userId,
-        userAvatar: this.$store.state.user.userInfo.largeAvatar,
-        stageTitle: 'sdfndsfn',
-        audienceNum: 0, // 此处可造假数据...
-      };
-      self.$socket.emit('create stage', userInfo);
+      self.setupSocketListener();
       MIDI.loadPlugin({
         soundfontUrl: '/soundfont/',
         instrument: 'acoustic_grand_piano',
@@ -62,7 +117,6 @@
               // while recording
               if (self.performState.recordMode) {
                 self.$store.commit('PUSH_RECORDER',{data:[e.data[0],e.data[1],e.data[2],e.timeStamp-self.performState.recordStartTime]})
-                // recorder.push(e.data[0],e.data[1],e.data[2],e.timeStamp-self.performState.recordStartTime);
               }
               // while on live
               if (self.performState.liveMode) {
