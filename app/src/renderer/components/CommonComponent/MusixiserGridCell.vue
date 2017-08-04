@@ -19,11 +19,7 @@
     },
     methods: {
       onclickcell() {
-        if (this.enableListen) {
-          location.href = `musixise://play?id=${this.workObj.id}`;
-        } else {
-          alert('just preview');
-        }
+        this.$router.push('/musixiser/'+this.musixiserObj.userId);
       },
       onhovercell() {
         this.maskshow = true;
