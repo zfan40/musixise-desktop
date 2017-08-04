@@ -66,6 +66,15 @@ export default [
           'content-section': require('components/FavoriteWorksPageView'),
         },
       },
+      {
+        // when /musixiser is match
+        path: 'musixiser/:id',
+        components: {
+          // this is named views
+          'sidebar-section': require('components/SideBarView/index'),
+          'content-section': require('components/MusixiserDetailPageView'),
+        },
+      },
     ],
   },
   // {

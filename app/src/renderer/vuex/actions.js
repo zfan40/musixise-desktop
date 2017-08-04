@@ -85,7 +85,7 @@ export const loadFavMusixisers = ({ commit }, {userId,page}) => {
 export const loadFavWorks = ({ commit }, {userId,page}) => {
 
   Vue.axios.post('//api.musixise.com/api/favorite/getWorkList/' + userId, '', req_config)
-    .then(function(res) {
+    .then(function(response) {
       commit(types.REFRESH_FAV_WORKS, { data: response.data.data})
     })
     .catch(function(err) {
@@ -152,4 +152,33 @@ export const uploadRecord = ({commit},{record}) => {
     }
     // trigger the read from the reader...
     reader.readAsDataURL(blob);
+}
+
+export const loadMusixiserDetail = ({commit},{userId}) => {
+  console.log('load musixiser detail!!!' + userId);
+  Vue.axios.post('//api.musixise.com/api/user/detail/' + userId, '',req_config)
+    .then(function(response){
+      commit(types.GET_MUSIXISER_DETAIL,{data:response.data.data})
+    })
+    .catch(function(err) {
+
+    })
+  //get musixiser works
+  Vue.axios.post('//api.musixise.com/api/work/getListByUid/' + userId, '', req_config)
+    .then(function(response) {
+      commit(types.GET_MUSIXISER_DETAIL_OWN_WORK,{data:response.data.data.content});
+        console.log('--- own songlist ---',self.songlist);
+    })
+    .catch(function(err) {
+
+    });
+  // get musixiser favorite list
+  Vue.axios.post('//api.musixise.com/api/favorite/getWorkList/' + userId, '', req_config)
+    .then(function(response) {
+      commit(types.GET_MUSIXISER_DETAIL_FAV_WORK,{data:response.data.data.content});
+        console.log('--- fav songlist ---',self.favsonglist);
+    })
+    .catch(function(err) {
+
+    });
 }
