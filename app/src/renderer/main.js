@@ -20,6 +20,10 @@ import VueSocketio from 'vue-socket.io';
 Vue.use(VueSocketio, 'http://io.musixise.com');
 
 import MIDIDevice from './components/MusixiseHelper/mididevice.js';
+import * as filters from './util/filters'
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 
 Vue.use(Electron);
 // Vue.use(Resource);

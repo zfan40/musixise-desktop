@@ -12,7 +12,7 @@ function createWindow() {
    * Initial window options
    */
    // not '~/Library/Application/.....'   妈蛋
-  BrowserWindow.addDevToolsExtension('/Users/ziwenfan/Library/Application\ Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/3.1.4_0');
+  BrowserWindow.addDevToolsExtension('/Users/ziwenfan/Library/Application\ Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/3.1.6_0');
   mainWindow = new BrowserWindow({
     titleBarStyle: 'hidden-inset',
   });
