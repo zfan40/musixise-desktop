@@ -8,6 +8,9 @@ const state = {
   recordMode: false,
   recordStartTime: 0,
   recorder:[],
+  chats:[],
+  gifts:[],
+  requests:[],
 };
 
 const mutations = {
@@ -38,6 +41,15 @@ const mutations = {
   // [types.HANDLE_MIDIDEVICE_RECEIVE_SIGNAL](state,{midimsg}) {
   //
   // }
+  [types.PUSH_CHATS](state, { data }) {
+    state.chats.push(data);
+  },
+  [types.PUSH_GIFTS](state, { data }) {
+    state.gifts.push(data);
+  },
+  [types.PUSH_REQUESTS](state, { data }) {
+    state.requests.push(data);
+  },
 };
 
 export default {

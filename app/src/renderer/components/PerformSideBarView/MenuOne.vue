@@ -33,7 +33,20 @@
       },
     },
     methods: {
-      updateLiveMode(e) { this.$store.commit('UPDATE_LIVE_STATUS', { status: e }); },
+      updateLiveMode(e) {
+        const userInfo = {
+              name: this.$store.state.user.userInfo.username,
+              realname: this.$store.state.user.userInfo.realname,
+              uid: this.$store.state.user.userInfo.userId,
+              userAvatar: this.$store.state.user.userInfo.largeAvatar,
+              stageTitle: 'sdfndsfn',
+              audienceNum: 0, // 此处可造假数据...
+            };
+        if (e) {this.$socket.emit('create stage', userInfo);}
+        else {this.$socket.emit('destroy stage');}
+
+        this.$store.commit('UPDATE_LIVE_STATUS', { status: e });
+      },
       updateRecordMode(e) { this.$store.commit('UPDATE_RECORD_STATUS', { status: e }); },
     },
   };
