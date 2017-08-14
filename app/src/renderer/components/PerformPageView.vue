@@ -1,15 +1,18 @@
 <template>
   <div class="perform-page-wrapper">
     <el-row>
-      <el-col :span="12">
+      <el-col :span="10">
         <div class="grid-content bg-purple chats">
-          {{currentAudienceAmount}}
+          <p class="listeners">{{performState.audienceNum}}人在听...</p>
           <chats></chats>
+          <div class="chat-input">
+            <el-input size="small" placeholder="Please Input" v-model="chatMsg" icon="edit" :on-icon-click="sendChatMsg"></el-input>
+          </div>
         </div>
       </el-col>
-      <el-col :span="6">
+      <el-col :span="8">
         <div class="grid-content bg-purple requests">
-          <requests></requests>        
+          <requests></requests>
         </div>
       </el-col>
       <el-col :span="6">
@@ -35,8 +38,7 @@
     },
     data() {
       return {
-        currentAudienceAmount:0,
-
+        chatMsg:''
       };
     },
     computed: {
@@ -48,15 +50,6 @@
       performState() { //state of performing (recordMode/liveMode)
         return this.$store.state.perform;
       },
-      gifts() { // gifts received
-
-      },
-      chats() { // chats during performance
-
-      },
-      requests() { // music requests during performance
-
-      }
     },
 
     methods: {
@@ -86,6 +79,12 @@
         this.$options.sockets.res_AudienceGiveGift = (data) => {
             this.$store.commit('PUSH_GIFTS', { data })
         }
+      },
+      sendChatMsg() {
+        this.$socket.emit('req_MusixiserComment',this.chatMsg)
+        var data = {isMine:true,msg:this.chatMsg}
+        this.chatMsg = ''
+        this.$store.commit('PUSH_CHATS', { data })
       },
       responseChat() {
         this.$socket.emit('req_MusixiserComment', 'content');
@@ -142,11 +141,15 @@
 <style scoped lang="scss">
   .perform-page-wrapper { position: relative;height:100%;
     .el-row { position: relative;height:100%;
-      .el-col { position: relative;height:100%;
+      .el-col { position: relative;height:100%;overflow-y:scroll;
         .grid-content {position: relative;height:100%;}
-        .chats {background-color:white}
-        .requests {background-color:green}
-        .gifts {background-color:purple}
+        .chats {
+          border-right:1px solid #ececec;
+          .listeners {padding-top:10px;}
+        }
+        .requests {border-right:1px solid #ececec;}
+        .gifts {}
+        .chat-input {height: 30px; bottom:70px; position: fixed;}
       }
     }
   }
