@@ -24,6 +24,8 @@ export const NEW_GIFT = 'NEW_GIFT';
 export const PUSH_CHATS = 'PUSH_CHATS';
 export const PUSH_GIFTS = 'PUSH_GIFTS';
 export const PUSH_REQUESTS = 'PUSH_REQUESTS';
+export const AUDIENCE_COME = 'AUDIENCE_COME';
+export const AUDIENCE_LEAVE = 'AUDIENCE_LEAVE';
 // fav related
 export const REFRESH_FAV_MUSIXISERS = 'REFRESH_MUSIXISERS';
 export const REFRESH_FAV_WORKS = 'REFRESH_WORKS';

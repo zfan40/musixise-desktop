@@ -4,6 +4,7 @@
       <register></register>
       <update></update>
       <upload-record></upload-record>
+      <live-setup></live-setup>
   </div>
 </template>
 
@@ -12,6 +13,7 @@
   import Register from './Register';
   import Update from './Update';
   import UploadRecord from './UploadRecord';
+  import LiveSetup from './LiveSetup';
 
   export default {
     components: {
@@ -19,6 +21,7 @@
       register: Register,
       update: Update,
       uploadRecord: UploadRecord,
+      liveSetup: LiveSetup,
     },
     created() {
       console.log('--- UserFormView Init ---');

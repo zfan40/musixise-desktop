@@ -22,11 +22,11 @@
   export default {
     data() {
       return {
-        updateFormHeader: {
-          dataType: 'json',
-          type: 'POST',
-        },
-        updateRecordForm: {
+        // updateFormHeader: {
+        //   dataType: 'json',
+        //   type: 'POST',
+        // },
+        uploadRecordForm: {
           tel: '',
           email: '',
           gender: '',
@@ -58,16 +58,15 @@
       },
       submitUploadRecordForm() {
         const self = this;
-        this.$store.dispatch('updateUser', { updateInfo: this.uploadRecordForm }).then(() => {
+        this.$store.dispatch('uploadRecord', { record: this.uploadRecordForm }).then(() => {
           self.hideUploadRecordDialog();
-          self.$message({ message: '更新信息成功', type: 'success' });
-        }, () => { self.$message({ message: '更新信息失败', type: 'error' }); });
+          self.$message({ message: '上传作品成功', type: 'success' });
+        }, () => { self.$message({ message: '上传作品失败', type: 'error' }); });
       },
       imageuploaded() {},
     },
     mounted() {
-      // others can use placeholder, no interference with two-way binding, but radio, v-model is annoying..
-      this.uploadRecordForm.gender = this.updateFormPlaceholder.gender;
+
     },
   };
 </script>

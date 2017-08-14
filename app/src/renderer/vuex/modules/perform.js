@@ -11,6 +11,7 @@ const state = {
   chats:[],
   gifts:[],
   requests:[],
+  audienceNum:0,
 };
 
 const mutations = {
@@ -28,7 +29,10 @@ const mutations = {
   [types.UPDATE_RECORD_STATUS](state, { status }) {
     state.recordMode = status;
     if (status) {
+      state.recorder = [];
       state.recordStartTime = performance.now();
+    } else {
+      
     }
   },
   [types.CLEAR_RECORDER](state) {
@@ -50,6 +54,12 @@ const mutations = {
   [types.PUSH_REQUESTS](state, { data }) {
     state.requests.push(data);
   },
+  [types.AUDIENCE_COME](state) {
+    state.audienceNum++;
+  },
+  [types.AUDIENCE_LEAVE](state, { data }) {
+    state.audienceNum--;
+  }
 };
 
 export default {
