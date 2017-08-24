@@ -47,6 +47,11 @@
             console.log(res);
             self.hideLoginDialog();
             self.$message({ message: '登录成功', type: 'success' });
+
+          })
+          .then(()=>{
+            const path = this.$router.history.current.fullPath
+            this.$store.dispatch('refreshPage',{path})
           }, () => {
             self.$message({ message: '登录失败', type: 'error' });
           });

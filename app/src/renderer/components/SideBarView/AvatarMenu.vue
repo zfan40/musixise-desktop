@@ -72,7 +72,10 @@
         this.hidePopOver();
         // directly logout
         this.$store.dispatch('logoutUser')
-          .then(() => { this.$message({ message: '登出成功', type: 'success' }); });
+          .then(() => {
+            const path = this.$router.history.current.fullPath
+            this.$store.dispatch('refreshPage',{path})
+          });
       },
     },
   };
