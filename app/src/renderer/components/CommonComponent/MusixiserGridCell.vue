@@ -63,13 +63,13 @@
     },
     mounted() {
       this.marqueeStyle = '';
-      this.getImageColorCSS(this.workObj.cover ? this.workObj.cover : this.workObj.owner.smallAvatar);
-      if (this.$refs.insider && this.$refs.outsider && (this.$refs.insider.offsetWidth > this.$refs.outsider.offsetWidth)) {
+      this.getImageColorCSS(this.musixiserObj.cover);
+      if (this.$refs.insider && this.$refs.outsider && this.$refs.insider.offsetWidth > this.$refs.outsider.offsetWidth) {
         const t = `${(this.$refs.insider.offsetWidth) / MARQUEE_SPEED}s;`;
         this.marqueeStyle += `-webkit-animation:marquee linear infinite;-o-animation:marquee linear infinite;animation:  marquee linear infinite;-webkit-animation-duration:${t}-o-animation-duration:${t}animation-duration:${t};`;
       } else {
         this.marqueeStyle += '';
-        console.log(this.$refs.insider.offsetWidth);
+        // console.log(this.$refs.insider.offsetWidth);
       }
     },
     updated() {
