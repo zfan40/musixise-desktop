@@ -31,7 +31,7 @@
 
 <style scoped lang="scss">
   .navigationbar {position:relative;height:100%;color:white;display:flex;align-items:center;
-    .history-nav-wrapper {width:100px;}
+    .history-nav-wrapper {width:150px;}
     .search-input-wrapper {width:200px;}
     .setting-wrapper {flex:1;text-align:right;padding-right:18px;}
   }

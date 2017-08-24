@@ -10,7 +10,9 @@
 
     </div>
     <div class="content-section">
-      <router-view name="content-section"></router-view>
+      <transition>
+        <router-view name="content-section"></router-view>
+      </transition>
     </div>
     <user-form></user-form>
   </div>

@@ -63,7 +63,7 @@
         this.marqueeStyle += `-webkit-animation:marquee linear infinite;-o-animation:marquee linear infinite;animation:  marquee linear infinite;-webkit-animation-duration:${t}-o-animation-duration:${t}animation-duration:${t};`;
       } else {
         this.marqueeStyle += '';
-        console.log(this.$refs.insider.offsetWidth);
+        // console.log(this.$refs.insider.offsetWidth);
       }
     },
     updated() {
@@ -85,6 +85,9 @@
         <transition name="fade">
           <div v-show="maskshow" class="work-mask">
             <!-- <span ref="outsider" class="work-body-desc"><p ref="insider" :style="marqueeStyle">{{workObj.content}}</p></span> -->
+            <img class="right-corner-icon" src="./assets/play.svg" alt="" @click.stop.prevent="play(workObj.id)">
+            <img v-if="!workObj.followStatus" class="right-corner-icon" src="./assets/inactive-like.svg" alt="" @click.stop.prevent="followMusixiser(workObj.id)">
+            <img v-if="workObj.followStatus" class="right-corner-icon" src="./assets/active-like.svg" alt="" @click.stop.prevent="unfollowMusixiser(workObj.id)">
           </div>
         </transition>
         <div class="work-body">
@@ -134,6 +137,14 @@
       height: 150px;
       background-color:rgba(0,0,0,.6);
       z-index:1;
+      .right-corner-icon {
+        position: relative;
+        display: inline-block;
+        float: right;
+        top:3px;
+        width: 28px;
+        height:28px;
+      }
       .work-body-desc {
         text-align: center;
         position:relative;

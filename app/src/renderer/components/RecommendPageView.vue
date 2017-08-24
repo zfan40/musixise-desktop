@@ -71,6 +71,9 @@
       renderer() {
         return this.$store.state.recommendpage.renderer;
       },
+      user() {
+        return this.$store.state.user.userInfo;
+      }
     },
     data() {
       return {};
@@ -84,6 +87,9 @@
       this.$store.dispatch('loadRecommend')
         .then(() => { console.log('loadload success'); });
     },
+    updated() {
+      console.log('--- Recommend Page Update ---')
+    }
   };
 </script>
 
