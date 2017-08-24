@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="演出准备" v-model="liveSetupFormVisible" :before-close="handleClose" :show-close="showclose">
+  <el-dialog title="演出准备" v-model="liveSetupFormVisible" :show-close="showclose">
     <el-form :model="liveSetupForm">
       <el-form-item label="演出名称" :label-width="formLabelWidth">
         <el-input v-model="liveSetupForm.name" auto-complete="off"></el-input>
@@ -29,6 +29,7 @@
     },
 
     methods: {
+
       hideDialog() {
         this.$store.commit('HIDE_DIALOG', { type: 'setuplive' });
       },

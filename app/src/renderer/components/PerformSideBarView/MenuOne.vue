@@ -1,9 +1,9 @@
 <template>
 
 
-  <el-menu-item-group title="Musixise">
-    <el-menu-item index="1">Live<el-switch v-model="livemode" :disabled="!performState.deviceList.length" @change="updateLiveMode" on-color="#13ce66" off-color="#ff4949"></el-switch></el-menu-item>
-    <el-menu-item index="2">Record<el-switch v-model="recordmode" :disabled="!performState.deviceList.length" @change="updateRecordMode" on-color="#13ce66" off-color="#ff4949"></el-switch></el-menu-item>
+  <el-menu-item-group title="Musixise" class="menu">
+    <el-menu-item index="1"><span class="switch-name">Live</span><el-switch v-model="livemode" :disabled="!performState.deviceList.length" @change="updateLiveMode" on-color="#13ce66" off-color="#ff4949"></el-switch></el-menu-item>
+    <el-menu-item index="2"><span class="switch-name">Record</span><el-switch v-model="recordmode" :disabled="!performState.deviceList.length" @change="updateRecordMode" on-color="#13ce66" off-color="#ff4949"></el-switch></el-menu-item>
     <el-menu-item index="3">
       <div class="" v-for="(device,index) in performState.deviceList" v-if="performState.deviceList.length">
         {{device.value.name}}
@@ -48,22 +48,21 @@
         if (e) { this.$store.commit('SHOW_DIALOG',{type:'setuplive'})}
         else {this.$socket.emit('destroy stage');this.$store.commit('UPDATE_LIVE_STATUS', { status: e });}
       },
-      updateRecordMode(e) { this.$store.commit('UPDATE_RECORD_STATUS', { status: e }); },
+      updateRecordMode(e) {
+        this.$store.commit('UPDATE_RECORD_STATUS', { status: e });
+        if (e) {
+          console.log('start record')
+        } else {
+          console.log('stop record')
+          this.$store.commit('SHOW_DIALOG',{type:'uploadrecord'})
+        }
+      },
     },
   };
 </script>
 
 <style scoped lang="scss">
-  .AvatarMenu {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    .avatar {
-
-    }
-    .name {
-
-    }
+  .menu {
+    .switch-name {display:inline-block; width:70px;}
   }
 </style>
